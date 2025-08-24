@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+
+
+
+{% load static %}
+
+{% block content %}
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide ">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <div class="carousel-inner" style="height:450px; width:100%; box-shadow: 10px 10px 10px rgba(194, 21, 21, 0.5); border-radius:15px;">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="{% static 'events-2.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5></h5>
+        <p>.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="{% static '56.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5></h5>
+        <p></p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="{% static 'event2.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5></h5>
+        <p></p>
+      </div>
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+
+
+
+{% comment %} history   {% endcomment %}
+<section class="container my-5">
+  <div class="text-center mb-4">
+    <h1 class="fw-bold text-primary">OUR HISTORY</h1>
+    <div class="underline mx-auto mb-3" style="width: 80px; height: 4px; background-color: #ff5722; border-radius: 5px;"></div>
+    <p class="text-muted">Discover our journey and how we started making memorable events for everyone.</p>
+  </div>
+
+  <div class="row align-items-center">
+    <!-- Left Image -->
+    <div class="col-md-6 mb-4">
+      <img src="{% static 'down3.jpg' %}" alt="Our History" class="img-fluid rounded shadow">
+    </div>
+
+    <!-- Right Text -->
+    <div class="col-md-6">
+      <h3 class="fw-bold mb-3">From a Small Start to a Big Vision</h3>
+      <p class="text-muted">
+        Our company began with a simple idea – to bring people together through unforgettable events.
+        Over the years, we have grown into a leading name in event management, crafting experiences
+        that leave lasting impressions.
+      </p>
+      <ul class="list-unstyled">
+        <li><i class="bi bi-check-circle-fill text-success"></i> Professional Event Planning</li>
+        <li><i class="bi bi-check-circle-fill text-success"></i> Customized Solutions</li>
+        <li><i class="bi bi-check-circle-fill text-success"></i> Affordable & Premium Services</li>
+      </ul>
+      <a href="#" class="btn btn-primary mt-3">Learn More</a>
+    </div>
+  </div>
+</section>
+{% comment %} history 2  {% endcomment %}
+<section class="container my-5">
+  {% comment %} <div class="text-center mb-4">
+     {% endcomment %}
+    {% comment %} <div class="underline mx-auto mb-3" style="width: 80px; height: 4px; background-color: #ff5722; border-radius: 5px;"></div> {% endcomment %}
+    {% comment %} <p class="text-muted">Discover our journey and how we started making memorable events for everyone.</p>
+  </div> {% endcomment %}
+
+  <div class="row align-items-center">
+    <!-- Left Image -->
+    <div class="col-md-6 mb-4">
+      <img src="{% static 'down2.jpg' %}" alt="Our History" class="img-fluid rounded shadow">
+    </div>
+
+    <!-- Right Text -->
+    <div class="col-md-6">
+      <h3 class="fw-bold mb-3">From a Small Start to a Big Vision</h3>
+      <p class="text-muted">
+        Our company began with a simple idea – to bring people together through unforgettable events.
+        Over the years, we have grown into a leading name in event management, crafting experiences
+        that leave lasting impressions.
+      </p>
+      <ul class="list-unstyled">
+        <li><i class="bi bi-check-circle-fill text-success"></i> Professional Event Planning</li>
+        <li><i class="bi bi-check-circle-fill text-success"></i> Customized Solutions</li>
+        <li><i class="bi bi-check-circle-fill text-success"></i> Affordable & Premium Services</li>
+      </ul>
+      <a href="#" class="btn btn-primary mt-3">Learn More</a>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
+

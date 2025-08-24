@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Event List{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <!-- Search Form -->
+    <form method="get" class="mb-4 d-flex gap-2">
+        <input type="text" name="q" placeholder="Search events..." 
+               value="{{ query|default:'' }}" class="form-control" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Event Table -->
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white text-center width-auto">
+            <h4>OUR EVENTS</h4>
+        </div>
+        <div class="card-body">
+            {% if events %}
+            <table class="table table-striped table-hover text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>EVENT NAME</th>
+                        <th>DESCRIPTION</th>
+                        <th>DATE</th>
+                        <th>TIME</th>
+                        <th>UPDATE</th>
+                        <th>DELETE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for eventss in events %}
+                    <tr>
+                        
+                        <td><strong>{{ eventss.name }}</strong></td>
+                        <td>{{ eventss.description }}</td>
+                        <td><span class="badge bg-primary">{{ eventss.date }}</span></td>
+                                                <td><span class="badge bg-warning text-dark">{{ eventss.time }}</span></td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-4">
+                                <a href='{% url "update_event" eventss.id %}' class="btn btn-sm btn-warning ">Update</a>
+                                
+                            </div>
+                        </td>
+                        <td>
+                                    <form action="{% url 'delete_event' eventss.id %}" method="POST">
+                                        {% csrf_token %}
+                                    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>   
+                                    </form>
+                               
+                            
+                                {% comment %} <a href="{% url 'delete_event' eventss.id %}" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Are you sure you want to delete this event?');">Delete</a>
+                            {% endcomment %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-warning text-center">No events found!</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

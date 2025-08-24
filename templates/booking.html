@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Booking Your Event{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 50px auto; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border-radius: 15px; background-color: #f9f9f9;">
+    <h2 style="text-align: center; color: #007bff; margin-bottom: 25px;">Booking Your Event</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 15px;">
+            <label for="id_name" style="font-weight: bold;">Name:</label><br>
+            {{ participant_form.name|add_class:"input-field" }}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="id_email" style="font-weight: bold;">Email:</label><br>
+            {{ participant_form.email|add_class:"input-field" }}
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label for="id_events" style="font-weight: bold;">Select Event(s):</label><br>
+            {{ participant_form.events|add_class:"input-field" }}
+        </div>
+
+        <div style="text-align: center;">
+            <button type="submit" style="padding: 10px 25px; border: none; border-radius: 25px; background-color: #007bff; color: white; font-weight: bold; cursor: pointer;">
+                Book Now
+            </button>
+        </div>
+    </form>
+</div>
+
+{% comment %} <style>
+    .input-field {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .input-field:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    }
+</style> {% endcomment %}
+{% endblock %}
