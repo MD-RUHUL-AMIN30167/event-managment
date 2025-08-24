@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import dj_database_url
 from pathlib import Path
 import os
 
@@ -28,7 +28,9 @@ SECRET_KEY = 'django-insecure--nn+ks)^hp+eixp2&*meluf@d6l3!dr^9br1%^lqv#s%v(2sy1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com','http://127.0.0.1:8000']
+
 
 
 # Application definition
@@ -88,18 +90,23 @@ WSGI_APPLICATION = 'event_managment.wsgi.application'
 # }
 
 # using postql 
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'event_managment',  
-        'USER': 'postgres',         # Default PostgreSQL user
-        'PASSWORD': '301678',       # তোমার password
-        'HOST': 'localhost',        # যদি local system হয়
-        'PORT': '5432',             # PostgreSQL default port
-    }
+    'default': dj_database_url.config(
+        default='postgresql://task_managment_db_wquo_user:6xssyHDmvYJzdvXdDksoWgy9V8NgqI4m@dpg-d2lla1fdiees73c56fs0-a.oregon-postgres.render.com/task_managment_db_wquo',
+        conn_max_age=600
+    )
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'event_managment',  
+#         'USER': 'postgres',         # Default PostgreSQL user
+#         'PASSWORD': '301678',       # তোমার password
+#         'HOST': 'localhost',        # যদি local system হয়
+#         'PORT': '5432',             # PostgreSQL default port
+#     }
+# }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
