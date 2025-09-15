@@ -1,0 +1,58 @@
+{% extends "admin/dashbord.html" %}
+{% load static %}
+{% block admin %}
+<div class="container mx-auto mt-20 mb-20 shadow-xl shadow-red-500">
+
+    <!-- Search Form -->
+    <div class="flex justify-center shadow-xl shadow-red-100">
+        <form method="get" class="mb-4 flex gap-2 w-1/2">
+            <input type="text" name="q" placeholder="Search events..."      
+                value="{{ query|default:'' }}" 
+                class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500" />
+                <button type="submit" 
+                    class="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition">
+                Search
+            </button>
+       </form>
+    </div>
+
+    <!-- Event Table -->
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden mt-5 ">
+        <div class="bg-pink-600 text-white text-center py-3 font-semibold">
+            <h4>OUR EVENTS</h4>
+        </div>
+        <div class="p-4">
+            {% if events %}
+            <table class="min-w-full text-center border-collapse">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="px-4 py-2 w-1/3">EVENT NAME</th>
+                        <th class="px-4 py-2 w-1/6">DATE</th>
+                        <th class="px-4 py-2 w-1/2">DESCRIPTION</th>
+                        <th class="px-4 py-2 w-1/6">DETAILS</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr class="border-b hover:bg-gray-100">
+                        <td class="px-4 py-2 font-semibold">{{ event.name }}</td>
+                        <td class="px-4 py-2 font-semibold">{{ event.date }}</td>
+                        <td class="px-4 py-2">{{ event.description|truncatechars:50 }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{% url 'admin_details' event.id %}" 
+                               class="px-3 py-1 text-black text-sm rounded font-bold">
+                                <li>View Details >>></li>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="text-center text-yellow-600 font-semibold">No events found!</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock admin %}

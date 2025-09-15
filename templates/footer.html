@@ -1,42 +1,92 @@
-<footer class="footer bg-dark text-white py-4 mt-auto">
+<footer class="footer bg-dark text-white py-5 mt-5 shadow-lg" style="box-shadow: 0 -4px 10px rgba(0,0,0,0.5);">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <h4>Company</h4>
+            <!-- Company -->
+            <div class="col-md-3 mb-3">
+                <h4 class="footer-title mb-3">Company</h4>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white">About us</a></li>
-                    <li><a href="#" class="text-white">Our Services</a></li>
-                    <li><a href="#" class="text-white">Privacy Policy</a></li>
-                    <li><a href="#" class="text-white">Address</a></li>
+                    <li><a href="#" class="footer-link">About us</a></li>
+                    <li><a href="#" class="footer-link">Our Services</a></li>
+                    <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                    <li><a href="#" class="footer-link">Address</a></li>
                 </ul>
             </div>
-            <div class="col-md-3">
-                <h4>Online Shop</h4>
+            <!-- Online Shop -->
+            <div class="col-md-3 mb-3">
+                <h4 class="footer-title mb-3">Online Shop</h4>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white">FAQ</a></li>
-                    <li><a href="#" class="text-white">Shipping</a></li>
-                    <li><a href="#" class="text-white">Returns</a></li>
-                    <li><a href="#" class="text-white">Payment Options</a></li>
+                    <li><a href="#" class="footer-link">FAQ</a></li>
+                    <li><a href="#" class="footer-link">Shipping</a></li>
+                    <li><a href="#" class="footer-link">Returns</a></li>
+                    <li><a href="#" class="footer-link">Payment Options</a></li>
                 </ul>
             </div>
-            <div class="col-md-3">
-                <h4>Get Help</h4>
+            <!-- Get Help -->
+            <div class="col-md-3 mb-3">
+                <h4 class="footer-title mb-3">Get Help</h4>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white">FAQ</a></li>
-                    <li><a href="#" class="text-white">Shipping</a></li>
-                    <li><a href="#" class="text-white">Returns</a></li>
-                    <li><a href="#" class="text-white">Payment Options</a></li>
+                    <li><a href="#" class="footer-link">FAQ</a></li>
+                    <li><a href="#" class="footer-link">Shipping</a></li>
+                    <li><a href="#" class="footer-link">Returns</a></li>
+                    <li><a href="#" class="footer-link">Payment Options</a></li>
                 </ul>
             </div>
-            <div class="col-md-3">
-                <h4>Follow Us</h4>
+            <!-- Follow Us -->
+            <div class="col-md-3 mb-3">
+                <h4 class="footer-title mb-3">Follow Us</h4>
                 <div class="d-flex gap-3">
-                    <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-x"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-x fa-lg"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin fa-lg"></i></a>
+                    
                 </div>
             </div>
+            
         </div>
+        
     </div>
+    
 </footer>
+
+<style>
+.footer {
+    background-color: #1c1c1c;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.footer-link {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.footer-link:hover {
+    color: #ff4d6d; /* Pinkish hover */
+    transform: translateX(5px);
+}
+
+.footer-title {
+    color: #ff4d6d;
+    font-weight: 600;
+}
+
+.social-link {
+    color: #fff;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-link:hover {
+    color: #ff4d6d;
+    transform: scale(1.2);
+}
+
+.footer ul li {
+    margin-bottom: 8px;
+}
+
+.footer ul li a {
+    display: inline-block;
+}
+</style>

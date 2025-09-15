@@ -1,0 +1,34 @@
+{% extends "admin/dashbord.html" %}
+
+{% block admin %}
+<div class="max-w-6xl mx-auto my-12 bg-white shadow-lg shadow-red-500 rounded-2xl p-6">
+    <h2 class="text-3xl font-bold text-red-600 mb-6 text-center">Groups & Permissions</h2>
+
+    <table class="w-full table-auto border-collapse">
+        <thead>
+            <tr class="bg-red-600 text-white text-left">
+                <th class="px-4 py-2">#</th>
+                <th class="px-4 py-2">Group Name</th>
+                <th class="px-4 py-2">Permissions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+            <tr class="border-b hover:bg-gray-100">
+                <td class="px-4 py-2">{{ forloop.counter }}</td>
+                <td class="px-4 py-2 font-semibold">{{ group.name }}</td>
+                <td class="px-4 py-2">
+                    {% for perm in group.permissions.all %}
+                       <span class="inline-block bg-gray-200 text-gray-800 text-sm px-2 py-1 rounded mr-1 mb-1">
+                            {{ perm.name }}
+                        </span> 
+                    {% empty %}
+                        <span class="text-gray-400">No Permissions</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock admin %}

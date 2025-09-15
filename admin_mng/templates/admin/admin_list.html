@@ -1,0 +1,42 @@
+{% extends "admin/dashbord.html" %}
+{% block admin %}
+<div class="mx-auto mb-30 py-8 px-8">
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white shadow-2xl rounded-2xl overflow-hidden border border-gray-200">
+      <thead class="bg-gradient-to-r from-red-400 via-pink-400 to-purple-400 text-white">
+        <tr>
+          <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider">Number</th>
+          <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider">Username</th>
+          <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider">Email</th>
+          <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider">User ID</th>
+          <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider">Current Role</th>
+          <th class="px-4 py-3 text-left text-xs font-bold uppercase tracking-wider">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <!-- Example dynamic data loop --> 
+        {% for user in users %}
+        <tr class="hover:bg-gradient-to-r hover:from-pink-100 hover:via-red-100 hover:to-purple-100 transition-colors duration-300">
+          <td class="px-4 py-4 whitespace-nowrap text-gray-700 font-semibold">{{ forloop.counter }}</td>
+          <td class="px-4 py-4 whitespace-nowrap text-gray-800 font-medium">{{ user.username }}</td>
+          <td class="px-4 py-4 whitespace-nowrap text-gray-600">{{ user.email }}</td>
+          <td class="px-4 py-4 whitespace-nowrap text-gray-700">{{ user.id }}</td>
+          <td class="px-4 py-4  font-semibold bg-white text-red rounded-full text-center">
+            {{ user.groups.first.name |default:"No Added Group"}}
+          </td>
+          <td class="px-4 py-4 whitespace-nowrap">
+            <a href="#" class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded shadow-lg transition-colors duration-300">
+              Change Role
+            </a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="px-4 py-4 text-center text-gray-500">No users found</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock admin %}

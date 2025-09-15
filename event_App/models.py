@@ -26,6 +26,7 @@ class Event(models.Model):
     date=models.DateField()
     time=models.TimeField()
     location=models.CharField(max_length=250)
+    event_image=models.ImageField(upload_to='image',blank=True,null=True)
 
     category=models.ForeignKey(Category,on_delete=models.CASCADE,related_name='events')
     def __str__(self):

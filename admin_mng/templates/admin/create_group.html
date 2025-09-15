@@ -1,0 +1,94 @@
+{% extends "admin/dashbord.html" %}
+
+{% block admin %}
+  <div class="flex justify-center my-12">
+    <div class="w-3/5 bg-white rounded-2xl p-8 shadow-[0_10px_25px_rgba(255,0,0,0.5)]">
+
+      <!-- Header -->
+      <h2 class="text-3xl font-bold text-center text-red-600 mb-6">Create New Group</h2>
+
+      <!-- Messages -->
+      <ul class="mb-4">
+        {% for message in messages %}
+        <li class="bg-green-700 text-white font-bold px-3 py-1 mb-1 rounded">{{ message }}</li>
+        {% endfor %}
+      </ul>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <!-- Group Name -->
+        <div class="mb-6">
+          <label class="block text-gray-900 font-semibold text-lg mb-2" for="{{ form.name.id_for_label }}">Group Name</label>
+          {{ form.name }}
+          {% if form.name.errors %}
+            <p class="text-red-500 text-sm mt-1">{{ form.name.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Permissions with Search & Select All -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center mb-2">
+            <label class="block text-gray-900 font-semibold text-lg">Search permission</label>
+            <button type="button" id="selectAllBtn"
+                    class="px-3 py-1 rounded bg-red-600 text-white hover:bg-red-700 text-sm font-semibold">
+              Select All
+            </button>
+          </div>
+
+          <!-- Search Box -->
+          <input type="text" id="permissionSearch" placeholder="Search permissions..."
+                 class="w-full mb-3 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+          >
+
+          <!-- Permissions List -->
+          <div id="permissionsList" class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-inner max-h-72 overflow-y-auto">
+            {% for checkbox in form.permissions %}
+              <div class="flex items-center mb-2 text-gray-800 permission-item">
+                {{ checkbox.tag }}
+                <label class="ml-2">{{ checkbox.choice_label }}</label>
+              </div>
+            {% endfor %}
+          </div>
+
+          {% if form.permissions.errors %}
+            <p class="text-red-500 text-sm mt-1">{{ form.permissions.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="px-6 py-2 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700">
+            Create Group
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS for Permission Search & Select All -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById('permissionSearch');
+  const selectAllBtn = document.getElementById('selectAllBtn');
+
+  // Search
+  searchInput.addEventListener('keyup', function() {
+    const filter = this.value.toLowerCase();
+    const items = document.querySelectorAll('#permissionsList .permission-item');
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(filter) ? 'flex' : 'none';
+    });
+  });
+
+  // Select All
+  selectAllBtn.addEventListener('click', function() {
+    const checkboxes = document.querySelectorAll('#permissionsList input[type="checkbox"]');
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    checkboxes.forEach(cb => cb.checked = !allChecked);
+  });
+});
+</script>
+
+  </script>
+{% endblock admin %}

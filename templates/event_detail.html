@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ event.name }}Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4 mb-4">
+    <div class="card shadow-lg" style="border-radius:10px; min-height: 450px;">
+        <div class="card-header text-center" style="background-color:#ff4d6d; color:white;">
+            <h4>{{ event.name }}</h4>
+        </div>
+        <div class="card-body row">
+            <div class="col-md-5">
+                {% if event.image %}
+                    <img src="{{ event.image.url }}" class="img-fluid rounded" style="max-height: 400px; object-fit: cover;" alt="{{ event.name }}">
+                {% else %}
+                    <img src="{% static 'down2.jpg' %}" class="img-fluid rounded" style="max-height: 400px; object-fit: cover;" alt="Default Event">
+                {% endif %}
+            </div>
+
+            <div class="col-md-7">
+                <p><strong>Description:</strong> {{ event.description }}</p>
+                <p><strong>Date:</strong> <span class="badge bg-primary">{{ event.date }}</span></p>
+                <p><strong>Time:</strong> <span class="badge bg-warning text-dark">{{ event.time }}</span></p>
+                <p><strong>Location:</strong> <span class="badge bg-warning text-dark">{{ event.location }}</span></p>
+            </div>
+
+            <hr class="mt-4">
+
+            <div class="col-12 mt-3">
+                {% if is_employee %}
+                    <div class="alert alert-info">You are booking as an Employee.</div>
+                {% endif %}
+                <div class="text-center my-5">
+                    <h4 class="fw-bold">Ready to Plan Your Next Event?</h4>
+                    <a href="{% url 'booking' %}" class="btn btn-primary btn-lg mt-3">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
