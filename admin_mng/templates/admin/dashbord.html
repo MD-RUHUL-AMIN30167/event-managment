@@ -9,7 +9,7 @@
   <body class="flex flex-col min-h-screen">
     <!-- Header -->
     <header class="bg-white shadow-md">
-      <nav class="mx-auto px-6 py-10 text-white bg-black shadow-lg">
+      <nav class="mx-auto px-6 py-10 text-white bg-pink-500 shadow-lg">
         <div class="flex justify-between items-center">
           <a href="index.html" class="text-xl font-bold text-white">ADMIN </a>
           <div class="hidden md:flex space-x-4">
@@ -27,14 +27,17 @@
 
           <div class="flex items-center">
             <div class="relative">
-              <button id="user-menu-button" class="flex items-center focus:outline-none">
-                <img class="h-8 w-8 rounded-full object-cover"
-                     src="https://placekitten.com/100/100"
-                     alt="User avatar"/>
-              </button>
+<button id="user-menu-button" class="flex items-center focus:outline-none focus:ring-2 focus:ring-white-500 focus:ring-offset-2 rounded-full">
+  <img class="h-8 w-8 rounded-full object-cover"
+       src="{{ profile_image|default:'https://via.placeholder.com/120' }}"
+       alt="User avatar"/>
+</button>
               
+              {% comment %} <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden">
+                <a href="{% url 'all_event' %}" class="block px-4 py-2 text-lg text-gray-500 hover:bg-green-500">Dashboard</a> {% endcomment %}
               <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden">
-                <a href="{% url 'all_event' %}" class="block px-4 py-2 text-lg text-gray-500 hover:bg-green-500">Dashboard</a>
+                <a href="{% url 'profile' %}" class="block px-4 py-2 text-lg text-gray-500 hover:bg-green-500">Profile</a>
+                
                 
               <form method="post" action="{% url 'sign_out' %}">
                 {% csrf_token %}
@@ -62,6 +65,13 @@
           <a href="{% url 'category' %}" class="block py-2 px-4 text-white hover:bg-green-500">Category</a>
           <a href="{% url 'create_group' %}" class="block py-2 px-4 text-white hover:bg-green-500">Create Group</a>
           <a href="{% url 'groups_list' %}" class="block py-2 px-4 text-white hover:bg-green-500">Groups List</a>
+          <a href="{% url 'profile' %}" class="block px-4 py-2 text-lg text-gray-500 hover:bg-green-500">Profile</a>
+          <form method="post" action="{% url 'sign_out' %}">
+                {% csrf_token %}
+                <button type="submit" class="block px-4 py-2 text-lg text-gray-500 hover:bg-red-500">
+                  Logout
+                </button>
+              </form>
         </div>
       </nav>
     </header>

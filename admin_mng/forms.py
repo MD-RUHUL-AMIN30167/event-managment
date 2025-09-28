@@ -3,6 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from event_App.forms import StyleForMixin
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import CustomUser
+from django.contrib.auth import get_user_model
+User=get_user_model()
 
 
 import re
@@ -58,4 +62,10 @@ class CreateGroupForm(StyleForMixin, forms.ModelForm):
     class Meta:
         model = Group
         fields = ['name', 'permissions']
+
+class EditProfileForm(StyleForMixin,forms.ModelForm):
+    class Meta:
+        model=CustomUser
+        fields=('first_name','last_name','email','profile_image','bio')
+
 

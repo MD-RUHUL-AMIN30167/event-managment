@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADMIN</title>
+    <title>Manager</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="flex flex-col min-h-screen">
@@ -16,11 +16,6 @@
               
                   <a href="{% url 'main_dashbord' %}" class="text-white hover:text-red-800 text-xl">Events</a>
                   <a href="{% url 'manager_create_event' %}" class="text-white hover:text-red-800 text-xl">Create Event</a>
-        
-                  
-                  
-
-       
             </div>
 
 
@@ -33,8 +28,8 @@
               </button>
               
               <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden">
-                <a href="{% url 'all_event' %}" class="block px-4 py-2 text-lg text-gray-500 hover:bg-green-500">Dashboard</a>
                 
+                <a href="{% url 'profile' %}" class="block px-4 py-2 text-lg text-gray-500 hover:bg-green-500">Profile</a>
               <form method="post" action="{% url 'sign_out' %}">
                 {% csrf_token %}
                 <button type="submit" class="block px-4 py-2 text-lg text-gray-500 hover:bg-red-500">
@@ -57,6 +52,13 @@
         <div id="mobile-menu" class="md:hidden hidden mt-6 bg-black">
           <a href="{% url 'main_dashbord' %}" class="block py-2 px-4 text-white hover:bg-green-500">Event</a>
           <a href="{% url 'manager_create_event' %}" class="block py-2 px-4 text-white hover:bg-green-500">Create Event</a>
+           <a href="{% url 'profile' %}" class="block px-4 py-2 text-lg text-gray-500 hover:bg-green-500">Profile</a>
+          <form method="post" action="{% url 'sign_out' %}">
+                {% csrf_token %}
+                <button type="submit" class="block px-4 py-2 text-lg text-gray-500 hover:bg-red-500">
+                  Logout
+                </button>
+              </form>
 
         </div>
       </nav>

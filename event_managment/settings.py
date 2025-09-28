@@ -29,6 +29,7 @@ SECRET_KEY = 'django-insecure--nn+ks)^hp+eixp2&*meluf@d6l3!dr^9br1%^lqv#s%v(2sy1
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+AUTH_USER_MODEL = 'admin_mng.CustomUser'
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com','http://127.0.0.1:8000']
 
 
@@ -92,23 +93,23 @@ WSGI_APPLICATION = 'event_managment.wsgi.application'
 # }
 
 # using postql 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://event_managment_db_bo23_user:6AZSEbaupatrywjDxdzDB2GM5NAspK9Q@dpg-d33vp9juibrs73avivt0-a.oregon-postgres.render.com/event_managment_db_bo23',
-        conn_max_age=600
-    )
-}
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'event_managment',  
-#         'USER': 'postgres',         
-#         'PASSWORD': '301678',       
-#         'HOST': 'localhost',        
-#         'PORT': '5432',             
-#     }
+#     'default': dj_database_url.config(
+#         default='postgresql://event_managment_db_bo23_user:6AZSEbaupatrywjDxdzDB2GM5NAspK9Q@dpg-d33vp9juibrs73avivt0-a.oregon-postgres.render.com/event_managment_db_bo23',
+#         conn_max_age=600
+#     )
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'event_managment',  
+        'USER': 'postgres',         
+        'PASSWORD': '301678',       
+        'HOST': 'localhost',        
+        'PORT': '5432',             
+    }
+}
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -133,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 

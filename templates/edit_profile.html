@@ -1,0 +1,57 @@
+{% extends "accounts/profile.html" %}
+{% block profile %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+
+            <!-- Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert 
+                        {% if message.tags == 'success' %}alert-success
+                        {% elif message.tags == 'error' %}alert-danger
+                        {% else %}alert-info{% endif %} 
+                        alert-dismissible fade show shadow-sm rounded" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Edit Profile Card -->
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-header bg-gradient text-primery py-3" style="background: linear-gradient(90deg, #667eea, #764ba2);">
+                    <h4 class="mb-0 text-center">Edit Profile</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <div class="form-text">{{ field.help_text }}</div>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                    <div class="text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">
+                            Update Profile
+                        </button>
+                        <div class="mb-3 mt-2">
+                            <a href="javascript:history.back()" class="btn btn-secondary w-100 py-2 fw-bold shadow-sm">
+                                ← Back
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock profile %}

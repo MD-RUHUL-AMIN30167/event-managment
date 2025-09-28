@@ -7,11 +7,22 @@ from django.contrib.auth import login,authenticate,logout
 from django.contrib import messages
 from admin_mng.forms import LoginForm
 from event_App.forms import Event,Participant,ParticipantForm
+
+from admin_mng.forms import EditProfileForm
+from admin_mng.models import CustomUser
+
 from django.db.models import Prefetch
 from django import forms
-import time
+from datetime import datetime
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required,user_passes_test
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin,PermissionRequiredMixin
+
+from django.views.generic import DetailView,ListView,TemplateView,UpdateView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import get_user_model
+User=get_user_model()
 
 # CreateLoginFrom
 def is_admin(user):
@@ -25,7 +36,7 @@ def is_admin_or_manager(user):
 
 def is_employee(user):
     return user.groups.filter(name='Employee').exists()
-
+"""
 @login_required
 @user_passes_test(is_admin,login_url='no_permission')
 def all_event(request):
@@ -43,6 +54,30 @@ def all_event(request):
         'query': query,          
     }
     return render(request, 'admin/admin_event.html', context)
+"""
+
+"""CBV """
+
+class All_Event_View_Admin(LoginRequiredMixin,UserPassesTestMixin,ListView):
+    model=Event
+    template_name="admin/admin_event.html"
+    context_object_name="events"
+
+    def test_func(self):
+        return is_admin(self.request.user)
+    
+    def handle_no_permission(self):
+        return redirect('no_permission')
+    
+    def get_queryset(self):
+        query= self.request.GET.get('q')
+        if query:
+            return Event.objects.filter(name__icontains=query)
+        return Event.objects.all()
+    def get_context_data(self,**kwargs):
+        context=super().get_context_data(**kwargs)
+        context["query"]=self.request.GET.get('q')
+        return context
 
 
 def sign_up(request):
@@ -55,7 +90,7 @@ def sign_up(request):
             user.is_active=False  #administration er User er active statue sendmail pathoner age unactive kore
             user.save()
             print("User created:", user.username)
-            time.sleep(2)
+            
             messages.success(request,'Your mail send successfull')
         
         return redirect('sign_in')
@@ -76,6 +111,16 @@ def sign_in(request):
         else:
             messages.error(request, "⚠️ Username Or Password Wrong !")
     return render(request, 'registration/sign_in.html', {'form': form})
+
+class CustomLoginView(LoginView):
+    form_class=LoginForm
+    template_name='registration/sign_in.html'
+    next_page=reverse_lazy('main_dashbord')
+    def get_success_url(self):
+        next_url=self.request.GET.get('next')
+        return next_url if next_url else super().get_success_url()
+
+
 
 @login_required
 def sign_out(request):
@@ -101,15 +146,25 @@ def admin_list(request):
     return render(request, 'admin/admin_list.html', {"users": users})
 
 
-
+"""
 @login_required
 @user_passes_test(is_admin,login_url='no_permission')
 def admin_details(request, event_id):
     event = Event.objects.get(id=event_id)
     return render(request, 'admin/admin_details.html', {'event': event})
+"""
+"CBV with admin details"
 
+class Details_Event_Admin(LoginRequiredMixin,UserPassesTestMixin,DetailView):
+    model=Event
+    template_name='admin/admin_details.html'
+    context_object_name='event'
+    pk_url_kwarg="event_id"
 
-
+    def handle_no_permission(self):
+        return redirect('no_permission')
+    def test_func(self):
+        return is_admin(self.request.user)
 # create group admin and manager 
 @login_required
 @user_passes_test(is_admin,login_url='no_permission')
@@ -151,8 +206,38 @@ def activate_user(request, uid, token):
         messages.error(request, f"Error: {e}")
         return redirect("sign_up")
     
+"""CBV with profile view """
+class ProfileView(LoginRequiredMixin,TemplateView):
+    template_name='accounts/dashbord_profile.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user=self.request.user
+        context["username"] =user.username 
+        context["email"]=user.email
+        context['name']=user.get_full_name()
+        context['user_joinded']=user.date_joined
+        context['user_last_login']=user.last_login
+      
+        context["profile_image"] = getattr(user, 'profile_image', None)
+        if context["profile_image"]:
+            context["profile_image"] = user.profile_image.url
+        else:
+            context["profile_image"] = "https://via.placeholder.com/120"        
+        context["bio"] = user.bio
 
+        return context
+    
+class EditProfileView(UpdateView):
+    model=CustomUser
+    form_class=EditProfileForm
+    template_name='edit_profile.html'
+    context_object_name='form'
 
+    def get_object(self):
+        return self.request.user
+    def form_valid(self, form):
+        form.save(commit=True)
+        return redirect('profile')
 # main Dashbord
 
 def main_dashbord(request):

@@ -2,6 +2,10 @@ from django import forms
 from.models import Category,Event,Participant
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib.auth import get_user_model
+User=get_user_model()
+
+from django.contrib.auth.forms import PasswordResetForm,SetPasswordForm
 """starting to the Mixing apply style to form field"""
 class StyleForMixin:
     def __init__(self, *arg, **kwarg):
@@ -117,3 +121,10 @@ class ParticipantForm(forms.ModelForm):
                     fail_silently=False  
                 )
         return participant
+
+
+class CustomPasswordResetForm(StyleForMixin,PasswordResetForm):
+    pass
+
+class CustomPasswordResetConfirmForm(StyleForMixin,SetPasswordForm):
+    pass
